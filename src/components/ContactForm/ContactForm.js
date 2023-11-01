@@ -7,7 +7,7 @@ const contactFormSchema = Yup.object().shape({
     .matches(/^[0-9-+]+$/, 'Please enter digits, "-" or "+"')
     .required('This field is required!'),
 });
-export const ContactForm = ({onAdd}) => {
+export const ContactForm = ({onAddContact}) => {
   return (
     <Formik
       initialValues={{
@@ -16,7 +16,7 @@ export const ContactForm = ({onAdd}) => {
       }}
       validationSchema={contactFormSchema}
       onSubmit={(values, actions) => {
-        onAdd(values)
+        onAddContact(values)
         actions.resetForm();
       }}
     >

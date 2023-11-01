@@ -16,11 +16,16 @@ export class App extends Component {
   };
 
   addContact = newContact => {
-    console.log(newContact);
+
+    if (this.state.contacts.some(contact => contact.name.toLowerCase() === newContact.name.toLowerCase())) {
+      return alert(`${newContact.name} is already in contacts!`)
+    }
+
     this.setState(prevState => ({
-      contatcts: [...prevState.contacts, { ...newContact, id: nanoid() }],
+      contacts: [...prevState.contacts, { ...newContact, id: nanoid() }],
     }));
   };
+
 
   deleteContact = (id) => {
 this.setState(prevState => ({
@@ -46,7 +51,7 @@ this.setState(prevState => ({
     return (
       <div>
         <h2>Phonebook</h2>
-        <ContactForm onAdd={this.addContact} />
+        <ContactForm onAddContact={this.addContact} />
         <h2>Contacts</h2>
         <Filter items={filterContacts} onChange={this.contactFilter} />
         <ContactList items={filterContacts} onDelete={this.deleteContact}/>
