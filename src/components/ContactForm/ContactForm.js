@@ -1,5 +1,12 @@
-import { Formik, Field, Form, ErrorMessage } from 'formik';
+import { Formik } from 'formik';
 import * as Yup from 'yup';
+import {
+  StyledBtn,
+  StyledErrMessage,
+  StyledField,
+  StyledForm,
+  StyledLabel,
+} from './ContactForm.styled';
 
 const contactFormSchema = Yup.object().shape({
   name: Yup.string().required('This field is required!'),
@@ -7,7 +14,7 @@ const contactFormSchema = Yup.object().shape({
     .matches(/^[0-9-+]+$/, 'Please enter digits, "-" or "+"')
     .required('This field is required!'),
 });
-export const ContactForm = ({onAddContact}) => {
+export const ContactForm = ({ onAddContact }) => {
   return (
     <Formik
       initialValues={{
@@ -16,24 +23,24 @@ export const ContactForm = ({onAddContact}) => {
       }}
       validationSchema={contactFormSchema}
       onSubmit={(values, actions) => {
-        onAddContact(values)
+        onAddContact(values);
         actions.resetForm();
       }}
     >
-      <Form>
-        <label>
+      <StyledForm>
+        <StyledLabel>
           Name
-          <Field name="name" />
-          <ErrorMessage name="name" />
-        </label>
-        <label>
+          <StyledField name="name" />
+          <StyledErrMessage name="name" component="div" />
+        </StyledLabel>
+        <StyledLabel>
           Number
-          <Field type="tel" name="number" required />
-          <ErrorMessage name="number" />
-        </label>
+          <StyledField type="tel" name="number" required />
+          <StyledErrMessage name="number" component="div" />
+        </StyledLabel>
 
-        <button type="submit">Add contact</button>
-      </Form>
+        <StyledBtn type="submit">Add contact</StyledBtn>
+      </StyledForm>
     </Formik>
   );
 };

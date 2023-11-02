@@ -3,6 +3,7 @@ import { ContactForm } from './ContactForm/ContactForm';
 import { nanoid } from 'nanoid';
 import { ContactList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
+import { Container } from './App.styled';
 
 export class App extends Component {
   state = {
@@ -16,9 +17,12 @@ export class App extends Component {
   };
 
   addContact = newContact => {
-
-    if (this.state.contacts.some(contact => contact.name.toLowerCase() === newContact.name.toLowerCase())) {
-      return alert(`${newContact.name} is already in contacts!`)
+    if (
+      this.state.contacts.some(
+        contact => contact.name.toLowerCase() === newContact.name.toLowerCase()
+      )
+    ) {
+      return alert(`${newContact.name} is already in contacts!`);
     }
 
     this.setState(prevState => ({
@@ -26,13 +30,12 @@ export class App extends Component {
     }));
   };
 
-
-  deleteContact = (id) => {
-this.setState(prevState => ({
-  contacts: prevState.contacts.filter(contact => contact.id !== id)
-}))
-    console.log('Deletecontact')
-  }
+  deleteContact = id => {
+    this.setState(prevState => ({
+      contacts: prevState.contacts.filter(contact => contact.id !== id),
+    }));
+    console.log('Deletecontact');
+  };
 
   contactFilter = evt => {
     this.setState({ filter: evt.target.value });
@@ -42,20 +45,19 @@ this.setState(prevState => ({
     const { contacts, filter } = this.state;
     return contacts.filter(contact =>
       contact.name.toLocaleLowerCase().includes(filter.toLocaleLowerCase())
-    )
-  }
+    );
+  };
   render() {
-
-    const filterContacts = this.getFilterContacts()
+    const filterContacts = this.getFilterContacts();
 
     return (
-      <div>
+      <Container>
         <h2>Phonebook</h2>
         <ContactForm onAddContact={this.addContact} />
         <h2>Contacts</h2>
         <Filter items={filterContacts} onChange={this.contactFilter} />
-        <ContactList items={filterContacts} onDelete={this.deleteContact}/>
-      </div>
+        <ContactList items={filterContacts} onDelete={this.deleteContact} />
+      </Container>
     );
   }
 }

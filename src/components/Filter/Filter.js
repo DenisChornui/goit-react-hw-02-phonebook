@@ -1,8 +1,14 @@
+import { StyledInput, StyledTitle } from './Filter.styled';
+
 export const Filter = ({ onChange }) => {
   return (
     <div>
-      <p>Find contacts by name</p>
-      <input type="string" name="filter" onChange={onChange}></input>
+      <StyledTitle>Find contacts by name</StyledTitle>
+      <StyledInput
+        type="string"
+        name="filter"
+        onChange={onChange}
+      ></StyledInput>
     </div>
   );
 };
